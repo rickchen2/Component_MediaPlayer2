@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Toast.makeText(MainActivity.this, "play", Toast.LENGTH_SHORT).show();
                 mPlayer.start();
+                //pop up to show a toast message after playback
+                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        Toast.makeText(MainActivity.this, "I'm done!", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });
@@ -39,13 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //pop up to show a toast message after playback
-        mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                Toast.makeText(MainActivity.this, "I'm done!", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 }
