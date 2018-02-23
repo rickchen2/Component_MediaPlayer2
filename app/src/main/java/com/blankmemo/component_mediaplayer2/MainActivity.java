@@ -44,9 +44,12 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton = (Button)findViewById(R.id.play_button);
         mPlayButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //pop up to show a toast message after playback
                 Toast.makeText(MainActivity.this, "play", Toast.LENGTH_SHORT).show();
                 mPlayer.start();
-                //pop up to show a toast message after playback
+
+                // Setup a listener on the media player, so that we can stop and release the
+                // media player once the sound has finished playing.
                 mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
