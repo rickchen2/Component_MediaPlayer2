@@ -13,13 +13,32 @@ public class MainActivity extends AppCompatActivity {
     private Button mPlayButton;
     private Button mPauseButton;
 
+    /**
+     * Clean up the media player by releasing its resources.
+     */
+    private void releaseMediaPlayer() {
+        // If the media player is not null, then it may be currently playing a sound.
+        if (mPlayer != null) {
+            // Regardless of the current state of the media player, release its resources
+            // because we no longer need it.
+            mPlayer.release();
+
+            // Set the media player back to null. For our code, we've decided that
+            // setting the media player to null is an easy way to tell that the media player
+            // is not configured to play an audio file at the moment.
+            mPlayer = null;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //release resource before MediaPlay is initialized to play another song
+        releaseMediaPlayer();
         //create a new Audio Player Object
         mPlayer = MediaPlayer.create(this, R.raw.sample);
+
 
 
         mPlayButton = (Button)findViewById(R.id.play_button);
@@ -32,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         Toast.makeText(MainActivity.this, "I'm done!", Toast.LENGTH_SHORT).show();
+                        //release resource after song finished playing
+                        releaseMediaPlayer();
                     }
                 });
 
@@ -45,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 mPlayer.pause();
             }
         });
+
 
 
     }
