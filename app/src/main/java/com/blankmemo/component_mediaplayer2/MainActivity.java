@@ -36,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //release resource before MediaPlay is initialized to play another song
         releaseMediaPlayer();
-        //create a new Audio Player Object
-        mPlayer = MediaPlayer.create(this, R.raw.sample);
 
 
 
         mPlayButton = (Button)findViewById(R.id.play_button);
         mPlayButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //create a new Audio Player Object
+                mPlayer = MediaPlayer.create(MainActivity.this, R.raw.sample);
                 //pop up to show a toast message after playback
                 Toast.makeText(MainActivity.this, "play", Toast.LENGTH_SHORT).show();
                 mPlayer.start();
@@ -72,6 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        // When the activity is stopped, release the media player resources because we won't
+        // be playing any more sounds.
+        releaseMediaPlayer();
     }
 
 }
